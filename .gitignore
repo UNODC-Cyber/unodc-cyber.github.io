@@ -1,0 +1,14 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.vscode/
+.idea/
+# Never commit dependencies or build output; runtime libraries are vendored deliberately
+node_modules/
+dist/
+# Never commit key material of any kind
+*.pem
+*.key
+*.enc.json
