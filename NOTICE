@@ -1,0 +1,11 @@
+unodc-cyber.github.io - certificate verifier
+Copyright 2026 UNODC Cybercrime Programme
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The licence does not grant permission to use the names, emblems, logos or
+other branding of the United Nations, UNODC or the Global Programme on
+Cybercrime. See BRANDING.md.
+
+The licence covers the verifier code only, not certificate data.
+See DATA-NOTICE.md.
