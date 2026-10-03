@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="light dark">
+<title>Certificate verification - UNODC Cybercrime Programme</title>
+<style>
+  :root { --bg:#ffffff; --fg:#1b1b1b; --muted:#555; --line:#d0d0d0; --accent:#002451; --note-bg:#f3f5f9; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#121417; --fg:#ececec; --muted:#b3b3b3; --line:#3a3f47; --accent:#9db7e8; --note-bg:#1c2129; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; background:var(--bg); color:var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif; }
+  .skip { position:absolute; left:-999px; } .skip:focus { left:16px; top:8px; background:var(--bg); padding:8px; outline:2px solid var(--accent); }
+  header, main, footer { max-width: 44rem; margin: 0 auto; padding: 0 16px; }
+  header { padding-top: 24px; }
+  header p.org { margin:0; font-weight:600; letter-spacing:.02em; }
+  header p.sub { margin:0 0 16px; color:var(--muted); }
+  h1 { font-size: 1.6rem; line-height:1.25; margin: 8px 0 16px; color: var(--accent); }
+  .status { border:1px solid var(--line); border-left:6px solid var(--accent); background:var(--note-bg); padding:16px; border-radius:6px; margin: 16px 0 24px; }
+  .status h2 { margin:0 0 8px; font-size:1.1rem; }
+  .status p { margin: 0 0 8px; }
+  label { display:block; font-weight:600; margin-bottom:6px; }
+  input { width:100%; min-height:44px; font: inherit; font-size:1.05rem; letter-spacing:.06em; text-transform:uppercase; padding:10px 12px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); }
+  .hint { color:var(--muted); font-size:.95rem; margin-top:6px; }
+  footer { margin-top:40px; padding:16px; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; }
+  footer p { margin: 0 0 8px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <p class="org">United Nations Office on Drugs and Crime</p>
+  <p class="sub">Cybercrime Programme</p>
+  <h1>Training certificate verification</h1>
+</header>
+<main id="main">
+  <section class="status" role="status" aria-labelledby="st">
+    <h2 id="st">Verification service not yet live</h2>
+    <p>This page will let anyone check whether a UNODC Cybercrime Programme training certificate identifier is valid, as of the date of the signed registry it checks.</p>
+    <p><strong>Nothing can be verified here yet.</strong> Nothing on this placeholder confirms or denies any certificate. Until launch, please contact the course organizers through the channels given in your course materials.</p>
+  </section>
+  <form aria-describedby="hint" action="#">
+    <label for="id">Certificate identifier (as printed on the certificate)</label>
+    <input id="id" name="id" autocomplete="off" autocapitalize="characters" spellcheck="false" disabled aria-disabled="true" placeholder="Available at launch">
+    <p class="hint" id="hint">Input is disabled while the service is being prepared.</p>
+  </form>
+</main>
+<footer>
+  <p>Verification service operated by UNODC Cybercrime Programme staff. Not hosted on a unodc.org domain.</p>
+  <p>No personal data is published. The United Nations emblem is not used on this site.</p>
+</footer>
+</body>
+</html>
