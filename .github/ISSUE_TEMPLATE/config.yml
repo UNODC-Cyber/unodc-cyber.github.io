@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security problem (private)
+    url: https://github.com/UNODC-Cyber/unodc-cyber.github.io/security/advisories/new
+    about: Report vulnerabilities privately. Never open a public issue for a security problem.
