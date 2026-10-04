@@ -1,52 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <title>Page not found - UNODC Cybercrime Programme certificate verification</title>
-<style>
-  :root { --bg:#ffffff; --fg:#1b1b1b; --muted:#555; --line:#d0d0d0; --accent:#002451; --note-bg:#f3f5f9; }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg:#121417; --fg:#ececec; --muted:#b3b3b3; --line:#3a3f47; --accent:#9db7e8; --note-bg:#1c2129; }
-  }
-  * { box-sizing: border-box; }
-  html, body { margin:0; background:var(--bg); color:var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif; }
-  .skip { position:absolute; left:-999px; } .skip:focus { left:16px; top:8px; background:var(--bg); padding:8px; outline:2px solid var(--accent); }
-  header, main, footer { max-width: 44rem; margin: 0 auto; padding: 0 16px; }
-  header { padding-top: 24px; }
-  header p.org { margin:0; font-weight:600; letter-spacing:.02em; }
-  header p.sub { margin:0 0 16px; color:var(--muted); }
-  h1 { font-size: 1.6rem; line-height:1.25; margin: 8px 0 16px; color: var(--accent); }
-  .status { border:1px solid var(--line); border-left:6px solid var(--accent); background:var(--note-bg); padding:16px; border-radius:6px; margin: 16px 0 24px; }
-  .status h2 { margin:0 0 8px; font-size:1.1rem; }
-  .status p { margin: 0 0 8px; }
-  a { color: var(--accent); } a:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
-  footer { margin-top:40px; padding:16px; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; }
-  footer p { margin: 0 0 8px; }
-</style>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header>
   <p class="org">United Nations Office on Drugs and Crime</p>
   <p class="sub">Cybercrime Programme</p>
-  <h1>Page not found</h1>
+  <h1>Certificate verification</h1>
 </header>
 <main id="main">
-  <section class="status" role="status" aria-labelledby="st">
-    <h2 id="st">Verification service not yet live</h2>
-    <p>If you arrived here from a QR code or an address printed on a certificate, the verification service has not been switched on yet. <strong>This page does not confirm or deny the validity of any certificate.</strong></p>
+  <section class="card" id="nf" aria-labelledby="nf-title">
+    <div class="head"><span class="icon" aria-hidden="true">?</span><h2 id="nf-title">Page not found</h2></div>
+    <p>If you arrived here from a certificate QR code or printed address, open the <a href="/">verification page</a> and type the certificate identifier. <strong>This page does not confirm or deny the validity of any certificate.</strong></p>
     <p>If you typed the address, it may simply be a page that does not exist.</p>
-    <p>Until launch, please contact the course organizers through the channels given in your course materials. You can return to the <a href="/">start page</a>.</p>
   </section>
 </main>
 <footer>
   <p>Verification service operated by UNODC Cybercrime Programme staff. Not hosted on a unodc.org domain.</p>
   <p>No personal data is published. The United Nations emblem is not used on this site.</p>
 </footer>
+<!-- GitHub Pages serves this file with HTTP status 404 for unknown paths, including /v/<ID>.
+     redirect.js forwards /v/<ID>[#k=<key>] to the lookup page, keeping the fragment. -->
+<script src="/assets/redirect.js"></script>
 </body>
 </html>

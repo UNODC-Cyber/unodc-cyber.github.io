@@ -1,58 +1,76 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self' https://raw.githubusercontent.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="light dark">
 <title>Certificate verification - UNODC Cybercrime Programme</title>
-<style>
-  :root { --bg:#ffffff; --fg:#1b1b1b; --muted:#555; --line:#d0d0d0; --accent:#002451; --note-bg:#f3f5f9; }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg:#121417; --fg:#ececec; --muted:#b3b3b3; --line:#3a3f47; --accent:#9db7e8; --note-bg:#1c2129; }
-  }
-  * { box-sizing: border-box; }
-  html, body { margin:0; background:var(--bg); color:var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif; }
-  .skip { position:absolute; left:-999px; } .skip:focus { left:16px; top:8px; background:var(--bg); padding:8px; outline:2px solid var(--accent); }
-  header, main, footer { max-width: 44rem; margin: 0 auto; padding: 0 16px; }
-  header { padding-top: 24px; }
-  header p.org { margin:0; font-weight:600; letter-spacing:.02em; }
-  header p.sub { margin:0 0 16px; color:var(--muted); }
-  h1 { font-size: 1.6rem; line-height:1.25; margin: 8px 0 16px; color: var(--accent); }
-  .status { border:1px solid var(--line); border-left:6px solid var(--accent); background:var(--note-bg); padding:16px; border-radius:6px; margin: 16px 0 24px; }
-  .status h2 { margin:0 0 8px; font-size:1.1rem; }
-  .status p { margin: 0 0 8px; }
-  label { display:block; font-weight:600; margin-bottom:6px; }
-  input { width:100%; min-height:44px; font: inherit; font-size:1.05rem; letter-spacing:.06em; text-transform:uppercase; padding:10px 12px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--fg); }
-  .hint { color:var(--muted); font-size:.95rem; margin-top:6px; }
-  footer { margin-top:40px; padding:16px; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; }
-  footer p { margin: 0 0 8px; }
-</style>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
 <header>
-  <p class="org">United Nations Office on Drugs and Crime</p>
-  <p class="sub">Cybercrime Programme</p>
-  <h1>Training certificate verification</h1>
+  <p class="org" data-i18n="app.org">United Nations Office on Drugs and Crime</p>
+  <p class="sub" data-i18n="app.sub">Cybercrime Programme</p>
+  <div class="lang">
+    <label for="lang" data-i18n="lang.label">Language</label>
+    <select id="lang" name="lang" autocomplete="off"></select>
+  </div>
+  <h1 data-i18n="app.title">Training certificate verification</h1>
 </header>
 <main id="main">
-  <section class="status" role="status" aria-labelledby="st">
-    <h2 id="st">Verification service not yet live</h2>
-    <p>This page will let anyone check whether a UNODC Cybercrime Programme training certificate identifier is valid, as of the date of the signed registry it checks.</p>
-    <p><strong>Nothing can be verified here yet.</strong> Nothing on this placeholder confirms or denies any certificate. Until launch, please contact the course organizers through the channels given in your course materials.</p>
-  </section>
-  <form aria-describedby="hint" action="#">
-    <label for="id">Certificate identifier (as printed on the certificate)</label>
-    <input id="id" name="id" autocomplete="off" autocapitalize="characters" spellcheck="false" disabled aria-disabled="true" placeholder="Available at launch">
-    <p class="hint" id="hint">Input is disabled while the service is being prepared.</p>
+  <p class="note dev" id="dev-banner" hidden data-i18n="dev.banner">Development build: the registry's integrity is NOT verified. Do not rely on any result shown here.</p>
+  <div class="note" id="qr-note" hidden><p data-i18n="qr.note">Opened from a certificate link or QR code. The identifier has been filled in for you.</p></div>
+
+  <form id="lookup" novalidate>
+    <div class="field">
+      <label for="id" data-i18n="id.label">Certificate identifier (as printed on the certificate)</label>
+      <input id="id" name="id" type="text" inputmode="latin" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" aria-describedby="id-hint id-feedback">
+      <p class="hint" id="id-hint" data-i18n="id.hint">27 letters and digits, usually printed in three groups of nine. Spaces and hyphens are optional.</p>
+      <p class="feedback" id="id-feedback"><span id="fb-progress" aria-hidden="true"></span><span id="fb-live" role="status" aria-live="polite"></span></p>
+    </div>
+    <button type="submit" id="check" data-i18n="id.button">Check certificate</button>
   </form>
+
+  <div id="live" aria-live="polite" aria-atomic="true">
+    <section class="card" id="result" hidden aria-labelledby="result-title">
+      <div class="head"><span class="icon" id="result-icon" aria-hidden="true"></span><h2 id="result-title"></h2></div>
+      <p id="result-text"></p>
+      <p class="asof" id="result-asof" hidden></p>
+      <p id="result-stale" hidden></p>
+      <p class="holder-hint" id="result-hint" hidden></p>
+    </section>
+  </div>
+
+  <section class="reveal" id="reveal" hidden aria-labelledby="reveal-title">
+    <h2 id="reveal-title" data-i18n="reveal.title">Course details</h2>
+    <p data-i18n="reveal.intro">Only the certificate holder can unlock the course details. Enter the family name or e-mail address exactly as printed or registered, plus the reveal code if it is not already filled in.</p>
+    <form id="reveal-form" novalidate>
+      <div class="field">
+        <label for="factor" data-i18n="reveal.factor.label">Family name or e-mail address</label>
+        <input id="factor" name="factor" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <div class="field" id="code-field">
+        <label for="code" data-i18n="reveal.code.label">Reveal code (printed under the QR code)</label>
+        <input id="code" name="code" type="text" inputmode="latin" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" aria-describedby="code-hint">
+        <p class="hint" id="code-hint" data-i18n="reveal.code.hint">10 letters and digits. Spaces and hyphens are optional.</p>
+      </div>
+      <p class="hint" id="code-from-link" hidden data-i18n="reveal.code.fromLink">The reveal code was taken from your QR link.</p>
+      <button type="submit" id="reveal-button" data-i18n="reveal.button">Show course details</button>
+    </form>
+    <progress id="reveal-progress" hidden aria-labelledby="reveal-out"></progress>
+    <div class="out" id="reveal-out" role="status" aria-live="polite"></div>
+  </section>
+  <noscript><p class="note">Verification needs JavaScript. Please enable it, or contact the course organizers through the channels given in your course materials, quoting the certificate identifier.</p></noscript>
 </main>
 <footer>
-  <p>Verification service operated by UNODC Cybercrime Programme staff. Not hosted on a unodc.org domain.</p>
-  <p>No personal data is published. The United Nations emblem is not used on this site.</p>
+  <p data-i18n="footer.1">Verification service operated by UNODC Cybercrime Programme staff. Not hosted on a unodc.org domain.</p>
+  <p data-i18n="footer.2">No personal data is published. The United Nations emblem is not used on this site.</p>
 </footer>
+<script type="module" src="assets/app.js"></script>
 </body>
 </html>
