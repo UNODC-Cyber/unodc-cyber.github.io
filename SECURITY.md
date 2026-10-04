@@ -13,7 +13,7 @@ Private reports are visible only to the organization owners. Please do **not** o
 
 - The verifier pages served at https://unodc-cyber.github.io/
 - The registry files the verifier checks (once published)
-- The integrity design (signed manifest, pinned keys, hashed identifiers) described in this repository's README
+- The integrity design (signed manifest, pinned keys, hashed identifiers) described in this repository's `SPEC.md`
 
 Out of scope: the certificate-issuing system, social engineering of staff or training participants, and denial of service against GitHub's infrastructure.
 
